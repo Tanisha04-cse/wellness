@@ -102,7 +102,7 @@ export default SelectSymptomScreen;
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fff',
   },
 
   // Header
@@ -175,8 +175,8 @@ headerTop: {
   // Symptom List
   listContainer: {
     paddingHorizontal: 16,
-    paddingTop: 8,
-    paddingBottom: 30,
+    paddingTop: 14,
+    paddingBottom: 14,
   },
 cardsWrapper: {
   backgroundColor: '#fff',

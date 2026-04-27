@@ -2,7 +2,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Text } from 'react-native';
+// @ts-ignore
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import HomeScreen from './src/screens/HomeScreen';
 import ReliefScreen from './src/screens/ReliefScreen';
@@ -10,28 +11,61 @@ import WellnessScreen from './src/screens/WellnessScreen';
 import ConsultScreen from './src/screens/ConsultScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import TherapyHistoryScreen from './src/screens/TherapyHistoryScreen';
+import HelpSupportScreen from './src/screens/HelpSupportScreen';
+import SettingsScreen from './src/screens/SettingsScreen';
+import SubscriptionsScreen from './src/screens/SubscriptionsScreen';
+import NotificationsScreen from './src/screens/NotificationsScreen';
 import SelectSymptomScreen from './src/screens/SelectSymptomScreen';
 import FaceGlowScreen from './src/screens/FaceGlowScreen';
+import YogaSessionScreen from './src/screens/YogaSessionScreen';
+import DoctorProfileScreen from './src/screens/DoctorProfileScreen';
+import BookAppointmentScreen from './src/screens/BookAppointmentScreen';
+import BookingConfirmedScreen from './src/screens/BookingConfirmedScreen';
+import PaymentScreen from './src/screens/PaymentScreen';
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
 const ProfileStack = createNativeStackNavigator();
+const WellnessStack = createNativeStackNavigator();
+const ConsultStack = createNativeStackNavigator();
 
-const TAB_ICONS: Record<string, string> = {
-  Home:     '🏠',
-  Relief:   '❤️',
-  Wellness: '✦',
-  Consult:  '📅',
-  Profile:  '👤',
+const TAB_ICONS: Record<string, { active: string; inactive: string }> = {
+  Home:        { active: 'home',                    inactive: 'home-outline'                  },
+  Relief:      { active: 'heart',                   inactive: 'heart-outline'                 },
+  WellnessTab: { active: 'star-four-points',        inactive: 'star-four-points-outline'      },
+  ConsultTab:  { active: 'calendar-month',          inactive: 'calendar-month-outline'        },
+  Profile:     { active: 'account-circle',          inactive: 'account-circle-outline'        },
 };
 
 function HomeStackNavigator() {
   return (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
-      <HomeStack.Screen name="HomeMain"       component={HomeScreen}         />
-      <HomeStack.Screen name="SelectSymptom"  component={SelectSymptomScreen}/>
-      <HomeStack.Screen name="FaceGlow"       component={FaceGlowScreen}     />
+      <HomeStack.Screen name="HomeMain"      component={HomeScreen}         />
+      <HomeStack.Screen name="SelectSymptom" component={SelectSymptomScreen}/>
+      <HomeStack.Screen name="FaceGlow"      component={FaceGlowScreen}     />
+      <HomeStack.Screen name="SessionScreen" component={YogaSessionScreen}  />
     </HomeStack.Navigator>
+  );
+}
+
+function WellnessStackNavigator() {
+  return (
+    <WellnessStack.Navigator screenOptions={{ headerShown: false }}>
+      <WellnessStack.Screen name="WellnessMain"  component={WellnessScreen}    />
+      <WellnessStack.Screen name="SessionScreen" component={YogaSessionScreen} />
+    </WellnessStack.Navigator>
+  );
+}
+
+function ConsultStackNavigator() {
+  return (
+    <ConsultStack.Navigator screenOptions={{ headerShown: false }}>
+      <ConsultStack.Screen name="ConsultMain"       component={ConsultScreen}          />
+      <ConsultStack.Screen name="DoctorProfile"     component={DoctorProfileScreen}    />
+      <ConsultStack.Screen name="BookAppointment"   component={BookAppointmentScreen}  />
+      <ConsultStack.Screen name="BookingConfirmed"  component={BookingConfirmedScreen} />
+      <ConsultStack.Screen name="Payment"           component={PaymentScreen}          />
+    </ConsultStack.Navigator>
   );
 }
 
@@ -40,6 +74,10 @@ function ProfileStackNavigator() {
     <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
       <ProfileStack.Screen name="ProfileMain"    component={ProfileScreen}        />
       <ProfileStack.Screen name="TherapyHistory" component={TherapyHistoryScreen} />
+      <ProfileStack.Screen name="HelpSupport"    component={HelpSupportScreen}    />
+      <ProfileStack.Screen name="Settings"       component={SettingsScreen}       />
+      <ProfileStack.Screen name="Subscriptions"  component={SubscriptionsScreen}  />
+      <ProfileStack.Screen name="Notifications"  component={NotificationsScreen}  />
     </ProfileStack.Navigator>
   );
 }
@@ -50,11 +88,11 @@ export default function App() {
       <Tab.Navigator
         screenOptions={({ route }) => ({
           headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <Text style={{ fontSize: 20, opacity: focused ? 1 : 0.5 }}>
-              {TAB_ICONS[route.name]}
-            </Text>
-          ),
+          tabBarIcon: ({ focused, color }) => {
+            const icons = TAB_ICONS[route.name];
+            const iconName = focused ? icons.active : icons.inactive;
+            return <Icon name={iconName} size={22} color={color} />;
+          },
           tabBarActiveTintColor: '#1FA77A',
           tabBarInactiveTintColor: '#9ca3af',
           tabBarStyle: {
@@ -76,11 +114,19 @@ export default function App() {
           },
         })}
       >
-        <Tab.Screen name="Home"     component={HomeStackNavigator}   />
-        <Tab.Screen name="Relief"   component={ReliefScreen}         />
-        <Tab.Screen name="Wellness" component={WellnessScreen}       />
-        <Tab.Screen name="Consult"  component={ConsultScreen}        />
-        <Tab.Screen name="Profile"  component={ProfileStackNavigator}/>
+        <Tab.Screen name="Home"        component={HomeStackNavigator}    />
+        <Tab.Screen name="Relief"      component={ReliefScreen}          />
+        <Tab.Screen
+          name="WellnessTab"
+          component={WellnessStackNavigator}
+          options={{ tabBarLabel: 'Wellness' }}
+        />
+        <Tab.Screen
+          name="ConsultTab"
+          component={ConsultStackNavigator}
+          options={{ tabBarLabel: 'Consult' }}
+        />
+        <Tab.Screen name="Profile"     component={ProfileStackNavigator} />
       </Tab.Navigator>
     </NavigationContainer>
   );

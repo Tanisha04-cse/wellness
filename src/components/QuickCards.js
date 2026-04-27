@@ -1,12 +1,18 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+// @ts-ignore
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const QuickCard = ({ title, icon, onPress }) => {
+const QuickCard = ({ title, iconName, onPress, bg = '#fff', color = '#1a1a1a', sub = '#9ca3af' }) => {
   return (
-    <TouchableOpacity style={styles.box} onPress={onPress} activeOpacity={0.85}>
-      <Text style={styles.icon}>{icon}</Text>
-      <Text style={styles.boxTitle}>{title}</Text>
-      <Text style={styles.boxSub}>Instant relief</Text>
+    <TouchableOpacity
+      style={[styles.box, { backgroundColor: bg }]}
+      onPress={onPress}
+      activeOpacity={0.85}
+    >
+      <MCIcon name={iconName} size={30} color={color} style={styles.icon} />
+      <Text style={[styles.boxTitle, { color }]}>{title}</Text>
+      <Text style={[styles.boxSub, { color: sub }]}>Instant relief</Text>
     </TouchableOpacity>
   );
 };
@@ -15,29 +21,28 @@ export default QuickCard;
 
 const styles = StyleSheet.create({
   box: {
-    backgroundColor: '#fff',
     borderRadius: 16,
     padding: 16,
     width: '47%',
     marginBottom: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.07,
-    shadowRadius: 6,
-    elevation: 2,
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 1,
+    minHeight: 110,
+    justifyContent: 'space-between',
   },
   icon: {
-    fontSize: 28,
     marginBottom: 10,
   },
   boxTitle: {
     fontSize: 15,
-    fontWeight: '600',
-    color: '#1a1a1a',
+    fontWeight: '700',
     marginBottom: 4,
   },
   boxSub: {
     fontSize: 12,
-    color: '#9ca3af',
+    opacity: 0.7,
   },
 });

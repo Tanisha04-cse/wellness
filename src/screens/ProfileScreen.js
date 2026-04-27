@@ -11,10 +11,10 @@ import {
 
 const MENU_ITEMS = [
   { icon: '🕐', title: 'Therapy History',  subtitle: 'View past sessions',  screen: 'TherapyHistory' },
-  { icon: '💳', title: 'Subscriptions',    subtitle: 'Manage plans',        screen: null },
-  { icon: '🔔', title: 'Notifications',    subtitle: 'Manage alerts',       screen: null },
-  { icon: '⚙️', title: 'Settings',         subtitle: 'App preferences',     screen: null },
-  { icon: '❓', title: 'Help & Support',   subtitle: 'Get assistance',      screen: null },
+  { icon: '💳', title: 'Subscriptions',    subtitle: 'Manage plans',        screen: 'Subscriptions' },
+  { icon: '🔔', title: 'Notifications',    subtitle: 'Manage alerts',       screen: 'Notifications' },
+  { icon: '⚙️', title: 'Settings',         subtitle: 'App preferences',     screen: 'Settings' },
+  { icon: '❓', title: 'Help & Support',   subtitle: 'Get assistance',      screen: 'HelpSupport' },
 ];
 
 const STATS = [
@@ -59,13 +59,13 @@ const ProfileScreen = ({ navigation }) => {
         <View style={styles.header}>
           <View style={styles.profileRow}>
             <View style={styles.avatar}>
-              <Text style={styles.avatarIcon}>👤</Text>
+              <Text style={styles.avatarIcon}>🐵</Text>
             </View>
             <View style={styles.profileInfo}>
               <Text style={styles.profileName}>John Doe</Text>
               <Text style={styles.profileEmail}>john.doe@email.com</Text>
               <View style={styles.premiumBadge}>
-                <Text style={styles.premiumText}>⭐ Premium Member</Text>
+                <Text style={styles.premiumText}>🛡️ Premium Member</Text>
               </View>
             </View>
           </View>
@@ -104,10 +104,7 @@ const ProfileScreen = ({ navigation }) => {
           {MENU_ITEMS.map((item, index) => (
             <TouchableOpacity
               key={index}
-              style={[
-                styles.menuRow,
-                index < MENU_ITEMS.length - 1 && styles.menuBorder,
-              ]}
+              style={styles.menuCard}
               activeOpacity={0.7}
               onPress={() => handleMenuPress(item.screen)}
             >
@@ -129,7 +126,7 @@ const ProfileScreen = ({ navigation }) => {
           activeOpacity={0.8}
           onPress={handleLogout}
         >
-          <Text style={styles.logoutText}>↩ Logout</Text>
+          <Text style={styles.logoutText}>↪ Logout</Text>
         </TouchableOpacity>
 
       </ScrollView>
@@ -164,7 +161,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 16,
   },
-  avatarIcon: { fontSize: 32 },
+  avatarIcon: { fontSize: 36 },
   profileInfo: { flex: 1 },
   profileName: {
     fontSize: 20,
@@ -245,36 +242,35 @@ const styles = StyleSheet.create({
   },
   streakStar: { fontSize: 20 },
   menuSection: {
-    backgroundColor: '#fff',
-    borderRadius: 16,
     marginHorizontal: 16,
     marginTop: 16,
-    paddingHorizontal: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.06,
-    shadowRadius: 4,
-    elevation: 1,
+    gap: 10,
   },
-  menuRow: {
+  menuCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 14,
-  },
-  menuBorder: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#f3f4f6',
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    borderWidth: 1,
+    borderColor: '#f0f0f0',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.04,
+    shadowRadius: 4,
+    elevation: 2,
   },
   menuIconCircle: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    backgroundColor: '#f0faf6',
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#e8f8f2',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 12,
+    marginRight: 14,
   },
-  menuIcon: { fontSize: 16 },
+  menuIcon: { fontSize: 18 },
   menuInfo: { flex: 1 },
   menuTitle: {
     fontSize: 15,
@@ -287,8 +283,9 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   menuArrow: {
-    fontSize: 22,
+    fontSize: 20,
     color: '#9ca3af',
+    fontWeight: '600',
   },
   logoutBtn: {
     marginHorizontal: 16,

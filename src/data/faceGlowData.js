@@ -1,30 +1,55 @@
 export const ROUTINES = [
   {
-    id: '1',
-    title: 'Morning Glow',
-    duration: '8 min',
-    icon: '🌟',
-    benefits: ['Reduce puffiness', 'Boost circulation', 'Fresh start'],
-  },
-  {
-    id: '2',
-    title: 'Evening Radiance',
+    id: 1,
+    icon: '🌅',
+    title: 'Morning Glow Routine',
     duration: '10 min',
-    icon: '🍌',
-    benefits: ['Release tension', 'Promote relaxation', 'Anti-aging'],
+    benefits: [
+      'Reduces puffiness',
+      'Boosts circulation',
+      'Awakens skin tone',
+    ],
   },
   {
-    id: '3',
-    title: 'Quick Refresh',
-    duration: '5 min',
-    icon: '⚡',
-    benefits: ['Instant glow', 'Reduce dark circles', 'Energize'],
+    id: 2,
+    icon: '💆',
+    title: 'Facial Acupressure',
+    duration: '8 min',
+    benefits: [
+      'Relieves tension headaches',
+      'Lifts cheekbones',
+      'Smooths fine lines',
+    ],
+  },
+  {
+    id: 3,
+    icon: '🌙',
+    title: 'Night Repair Routine',
+    duration: '12 min',
+    benefits: [
+      'Promotes cell renewal',
+      'Deep relaxation',
+      'Reduces dark circles',
+    ],
+  },
+  {
+    id: 4,
+    icon: '✨',
+    title: 'Gua Sha Flow',
+    duration: '15 min',
+    benefits: [
+      'Sculpts jawline',
+      'Drains lymph nodes',
+      'Brightens complexion',
+    ],
   },
 ];
 
 export const BENEFITS = [
-  { id: '1', icon: '✨', title: 'Natural glow'  },
-  { id: '2', icon: '🖼️', title: 'Tension relief' },
-  { id: '3', icon: '✨', title: 'Anti-aging'     },
-  { id: '4', icon: '😊', title: 'Mood boost'     },
+  { id: 1, icon: '💫', title: 'Reduces Puffiness' },
+  { id: 2, icon: '🌸', title: 'Natural Glow' },
+  { id: 3, icon: '🧬', title: 'Boosts Collagen' },
+  { id: 4, icon: '🩸', title: 'Better Circulation' },
+  { id: 5, icon: '😌', title: 'Stress Relief' },
+  { id: 6, icon: '🌿', title: 'Detoxifies Skin' },
 ];

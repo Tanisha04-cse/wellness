@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   StatusBar,
 } from 'react-native';
+// @ts-ignore
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RELIEF_ITEMS } from '../data/reliefData';
 
 const ReliefScreen = () => {
@@ -18,7 +20,7 @@ const ReliefScreen = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 30 }}
       >
-        {/* ── Header ── */}
+        {/* Header */}
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Quick Relief</Text>
           <Text style={styles.headerSubtitle}>
@@ -26,33 +28,26 @@ const ReliefScreen = () => {
           </Text>
         </View>
 
-        {/* ── Grid ── */}
+        {/* Grid */}
         <View style={styles.grid}>
           {RELIEF_ITEMS.map((item) => (
             <TouchableOpacity
               key={item.id}
               style={[styles.card, { backgroundColor: item.bgColor }]}
               activeOpacity={0.8}
-              // Later: onPress={() => navigation.navigate('ReliefDetail', { item })}
             >
-              {/* Icon */}
-              <Text style={styles.cardIcon}>{item.icon}</Text>
-
-              {/* Title + Subtitle */}
-              <Text style={styles.cardTitle}>{item.title}</Text>
+              <MCIcon name={item.icon} size={32} color={item.iconColor} style={styles.cardIcon} />
+              <Text style={[styles.cardTitle, { color: item.iconColor }]}>{item.title}</Text>
               <Text style={styles.cardSubtitle}>{item.subtitle}</Text>
-
-              {/* Sessions + Arrow */}
               <View style={styles.cardFooter}>
                 <Text style={[styles.sessions, { color: item.iconColor }]}>
                   {item.sessions} sessions
                 </Text>
-                <Text style={[styles.arrow, { color: item.iconColor }]}>→</Text>
+                <MCIcon name="arrow-right" size={16} color={item.iconColor} />
               </View>
             </TouchableOpacity>
           ))}
         </View>
-
       </ScrollView>
     </View>
   );
@@ -65,8 +60,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
-
-  // Header
   header: {
     backgroundColor: '#1FA77A',
     paddingTop: 50,
@@ -85,8 +78,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: 'rgba(255,255,255,0.85)',
   },
-
-  // Grid
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -96,24 +87,25 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '48%',
-    borderRadius: 16,
+    borderRadius: 18,
     padding: 16,
     marginBottom: 14,
+    minHeight: 168,
+    justifyContent: 'space-between',
   },
   cardIcon: {
-    fontSize: 28,
-    marginBottom: 16,
+    marginBottom: 8,
   },
   cardTitle: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '700',
-    color: '#1a1a1a',
     marginBottom: 4,
   },
   cardSubtitle: {
     fontSize: 12,
     color: '#6b7280',
-    marginBottom: 16,
+    marginBottom: 12,
+    flexShrink: 1,
   },
   cardFooter: {
     flexDirection: 'row',
@@ -123,9 +115,5 @@ const styles = StyleSheet.create({
   sessions: {
     fontSize: 12,
     fontWeight: '500',
-  },
-  arrow: {
-    fontSize: 16,
-    fontWeight: '600',
   },
 });

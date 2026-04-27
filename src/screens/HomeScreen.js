@@ -7,21 +7,23 @@ import {
   TouchableOpacity,
   StatusBar,
 } from 'react-native';
+// @ts-ignore
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import QuickCard from '../components/QuickCards';
 
 const QUICK_RELIEF_ITEMS = [
-  { title: 'Headache', icon: '🧠' },
-  { title: 'Neck Pain', icon: '⚡' },
-  { title: 'Back Pain', icon: '🔥' },
-  { title: 'Stress', icon: '💨' },
-  { title: 'Anxiety', icon: '🫀' },
-  { title: 'Sleep', icon: '😴' },
+  { title: 'Headache', icon: 'brain',           bg: '#EEF2FF', color: '#4f46e5', sub: '#818cf8' },
+  { title: 'Neck Pain', icon: 'lightning-bolt', bg: '#F5F0FF', color: '#7c3aed', sub: '#a78bfa' },
+  { title: 'Back Pain', icon: 'fire',           bg: '#FFF3E0', color: '#ea580c', sub: '#fb923c' },
+  { title: 'Stress',    icon: 'weather-windy',  bg: '#E8FDF5', color: '#0d9488', sub: '#2dd4bf' },
+  { title: 'Anxiety',   icon: 'heart-outline',  bg: '#FFF0F3', color: '#e11d48', sub: '#fb7185' },
+  { title: 'Sleep',     icon: 'sleep',          bg: '#F0F9FF', color: '#0284c7', sub: '#38bdf8' },
 ];
 
 const WELLNESS_ITEMS = [
-  { title: 'Yoga',       duration: '15 min', icon: '🧘'   },
-  { title: 'Meditation', duration: '10 min', icon: '🧘‍♀️' },
-  { title: 'Breathing',  duration: '5 min',  icon: '🤲'   },
+  { title: 'Yoga',       duration: '15 min', icon: 'yoga'         },
+  { title: 'Meditation', duration: '10 min', icon: 'meditation'   },
+  { title: 'Breathing',  duration: '5 min',  icon: 'lungs'        },
 ];
 
 const HomeScreen = ({ navigation }) => {
@@ -59,7 +61,14 @@ const HomeScreen = ({ navigation }) => {
 
           <View style={styles.grid}>
             {QUICK_RELIEF_ITEMS.map((item, index) => (
-              <QuickCard key={index} title={item.title} icon={item.icon} />
+              <QuickCard
+                key={index}
+                title={item.title}
+                iconName={item.icon}
+                bg={item.bg}
+                color={item.color}
+                sub={item.sub}
+              />
             ))}
           </View>
         </View>
@@ -68,22 +77,35 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Wellness</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('WellnessTab')}>
               <Text style={styles.seeAll}>Explore →</Text>
             </TouchableOpacity>
           </View>
 
           {WELLNESS_ITEMS.map((item, index) => (
-            <View key={index} style={styles.wellnessRow}>
-              <Text style={styles.wellnessIcon}>{item.icon}</Text>
+            <TouchableOpacity
+              key={index}
+              style={styles.wellnessRow}
+              activeOpacity={0.85}
+              onPress={() => {
+                if (item.title === 'Yoga') {
+                  navigation.navigate('SessionScreen', { sessionKey: 'YogaSession' });
+                } else if (item.title === 'Meditation') {
+                  navigation.navigate('SessionScreen', { sessionKey: 'MeditationSession' });
+                } else if (item.title === 'Breathing') {
+                  navigation.navigate('SessionScreen', { sessionKey: 'BreathingSession' });
+                }
+              }}
+            >
+              <MCIcon name={item.icon} size={28} color="#1FA77A" style={styles.wellnessIcon} />
               <View style={styles.wellnessInfo}>
                 <Text style={styles.wellnessTitle}>{item.title}</Text>
                 <Text style={styles.wellnessDuration}>{item.duration}</Text>
               </View>
-              <TouchableOpacity style={styles.videoBtn}>
-                <Text style={styles.videoBtnIcon}>🎥</Text>
-              </TouchableOpacity>
-            </View>
+              <View style={styles.videoBtn}>
+                <MCIcon name="video-outline" size={18} color="#1FA77A" />
+              </View>
+            </TouchableOpacity>
           ))}
 
           {/* Face Glow Card */}
@@ -94,7 +116,7 @@ const HomeScreen = ({ navigation }) => {
 >
             <View style={styles.faceGlowLeft}>
               <View style={styles.faceGlowIconCircle}>
-                <Text style={{ fontSize: 22 }}>✨</Text>
+                <MCIcon name="star-four-points-outline" size={22} color="#fff" />
               </View>
               <View>
                 <Text style={styles.faceGlowTitle}>Face Glow</Text>
@@ -106,16 +128,16 @@ const HomeScreen = ({ navigation }) => {
         </View>
 
         {/* ── Book a Consultation ── */}
-        <TouchableOpacity style={styles.consultBanner} activeOpacity={0.88}>
+        <TouchableOpacity style={styles.consultBanner} activeOpacity={0.88} onPress={() => navigation.navigate('ConsultTab')}>
           <View style={styles.consultLeft}>
-            <Text style={styles.consultIcon}>📅</Text>
+            <MCIcon name="calendar-month-outline" size={22} color="#fff" style={styles.consultIcon} />
             <View>
               <Text style={styles.consultTitle}>Book a Consultation</Text>
               <Text style={styles.consultSub}>Connect with expert doctors</Text>
             </View>
           </View>
           <View style={styles.consultArrowCircle}>
-            <Text style={styles.consultArrow}>→</Text>
+            <MCIcon name="arrow-right" size={18} color="#fff" />
           </View>
         </TouchableOpacity>
 
@@ -214,7 +236,6 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   wellnessIcon: {
-    fontSize: 26,
     marginRight: 12,
   },
   wellnessInfo: {
